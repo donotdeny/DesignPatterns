@@ -1,9 +1,9 @@
 ﻿using FactoryPattern;
 
-var test = new Person.PersonFactory();
-Person person1 = test.CreatePerson("An");
-Person person2 = test.CreatePerson("Bao");
-Person person3 = test.CreatePerson("Nguyen");
-Console.WriteLine(person1);
-Console.WriteLine(person2);
-Console.WriteLine(person3);
+Creator creator = new ConcreteCreatorMily();
+IProduct mily = creator.FactoryMethod();
+Console.WriteLine(mily.Operation());
+Console.WriteLine("-------------------");
+creator = new ConcreteCreatorCommunity();
+IProduct community = creator.FactoryMethod();
+Console.WriteLine(community.Operation());
