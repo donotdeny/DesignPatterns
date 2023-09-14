@@ -10,6 +10,11 @@ namespace PrototypePattern
     // Another way: Library (Automapper, ...), JSON Serialization
     public interface ICloneable
     {
+
+        /// <summary>
+        /// Deep clone current object
+        /// </summary>
+        /// <returns></returns>
         object Clone();
     }
 
@@ -30,10 +35,6 @@ namespace PrototypePattern
             return (Person) this.MemberwiseClone();
         }
 
-        /// <summary>
-        /// Deep clone current object
-        /// </summary>
-        /// <returns></returns>
         public object Clone()
         {
             return new Person()
@@ -55,6 +56,7 @@ namespace PrototypePattern
         public string Street { get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;
         public string State { get; set; } = string.Empty;
+
         public object Clone()
         {
             return new Address()
