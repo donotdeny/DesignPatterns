@@ -1,9 +1,9 @@
 ﻿using AdapterPattern;
 
-IAdaptee adaptee = new Adaptee();
-ITarget target = new Adapter(adaptee);
-
-Console.WriteLine("Adaptee interface is incompatible with the client.");
-Console.WriteLine("But with adapter client can call it's method.");
-
-Console.WriteLine(target.GetRequest());
+// Giả sử store này đang bán các loại thực phẩm thì bỗng có lệnh cấm thực phẩm (FoodItem), họ liền chuyển
+// sang giải pháp khác là bán đồ tạp hóa (GroceryItem) mà không muốn sửa code.
+SwiggyStore swiggyStore = new();
+swiggyStore.AddItem(new FoodItem());
+swiggyStore.AddItem(new FoodItem());   
+// Giải pháp là sử dụng Adapter pattern
+swiggyStore.AddItem(new GroceryItemAdapter(new GroceryItem()));

@@ -6,38 +6,104 @@ using System.Threading.Tasks;
 
 namespace AdapterPattern
 {
-    // inteface tương thích với client code
-    public interface ITarget
+    /// <summary>
+    /// adapter chuyển đổi từ adaptee sang target
+    /// </summary>
+    public class GroceryItemAdapter : IItem
     {
-        string GetRequest();
-    }
-
-    // interface chứa các method không tương thích với client code
-    public interface IAdaptee
-    {
-        string GetSpecificRequest();
-    }
-
-    class Adaptee : IAdaptee
-    {
-        public string GetSpecificRequest()
+        private IGroceryItem _groceryItem;
+        public GroceryItemAdapter(IGroceryItem groceryItem)
         {
-            return "Specific request.";
+            _groceryItem = groceryItem;
+        }
+        public string GetItemName()
+        {
+            return _groceryItem.GetName();
+        }
+
+        public string GetPrice()
+        {
+            return _groceryItem.GetPrice();
+        }
+
+        public string GetRestaurantName()
+        {
+            return _groceryItem.GetStoreName();
+        }
+    }
+    /// <summary>
+    /// client này đang sử dụng food item (target interface)
+    /// </summary>
+    public class SwiggyStore
+    {
+        public List<IItem> ListItems = new();
+        public void AddItem(IItem item)
+        {
+            ListItems.Add(item);
         }
     }
 
-    class Adapter : ITarget
+    /// <summary>
+    /// target interface
+    /// </summary>
+    public interface IItem
     {
-        private readonly IAdaptee iAdaptee;
+        string GetItemName();
+        string GetPrice();
+        string GetRestaurantName();
+    }
 
-        public Adapter(IAdaptee adaptee)
+    /// <summary>
+    /// implemention target
+    /// </summary>
+    public class FoodItem : IItem
+    {
+        public string GetItemName()
         {
-            iAdaptee = adaptee;
+            return "GetItemName";
         }
 
-        public string GetRequest()
+        public string GetPrice()
         {
-            return $"This is '{iAdaptee.GetSpecificRequest()}'";
+            return "GetPrice";
+
+        }
+
+        public string GetRestaurantName()
+        {
+            return "GetRestaurantName";
+
+        }
+    }
+
+    /// <summary>
+    /// Adaptee không tương thích với client
+    /// </summary>
+    public interface IGroceryItem
+    {
+        string GetName();
+        string GetPrice();
+        string GetStoreName();
+    }
+
+    /// <summary>
+    /// implemention adaptee
+    /// </summary>
+    public class GroceryItem: IGroceryItem
+    {
+        public string GetName()
+        {
+            return "GetName";
+        }
+
+        public string GetPrice()
+        {
+            return "GetPrice";
+        }
+
+        public string GetStoreName()
+        {
+            return "GetStoreName";
         }
     }
 }
